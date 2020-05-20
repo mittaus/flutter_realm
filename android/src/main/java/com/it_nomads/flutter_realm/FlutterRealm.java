@@ -65,8 +65,13 @@ class FlutterRealm {
             switch (call.method) {
                 case "createObject": {
                     String className = (String) arguments.get("$");
-                    final String uuid = (String) arguments.get("uuid");
-
+                    Object primaryKey = arguments.get("primaryKey");
+                    Object uuid = null;
+                    if (arguments.get("uuid") instanceof String) {
+                        uuid = (String) arguments.get("uuid");
+                    } else if (arguments.get("uuid") instanceof Integer) {
+                        uuid = (Integer) arguments.get("uuid");
+                    }
 
                     assert className != null;
                     assert uuid != null;
